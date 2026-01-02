@@ -2,11 +2,16 @@ import React from 'react'
 import './MrWhite.css'
 
 function MrWhite() {
+  
   return (
     <>
-    <div className='bg-red-500'>
+    <div className='p-12'>
 
-    <h1 className='text-6xl text-amber-600'>helllo </h1>
+    <div className="flex justify-center items-center border-white border-2"  >
+    <div className=" border-white border-2 text-white">Hello</div>
+    
+
+    </div>
     </div>
     </>
   )
