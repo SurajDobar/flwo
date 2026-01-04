@@ -1,12 +1,29 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import React from 'react'
+
 import './index.css'
-
+import ReactDOM from 'react-dom/client'
+import {  createBrowserRouter, createRoutesFromElements, Route, RouterProvider, Routes } from 'react-router-dom'
 import MrWhite from './components/MrWhite.jsx'
+import MainMenu from './components/MainMenu.jsx'
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+<>
+    <Route path="/" element={<MainMenu/>} />
+    <Route path="Mrwhite" element={<MrWhite/>}/>
+</>
     
-    <MrWhite/>
-  </StrictMode>,
+    
+    
+  )
+)
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+
+
+    <RouterProvider router={router}/>
+    
+  
+  
 )
