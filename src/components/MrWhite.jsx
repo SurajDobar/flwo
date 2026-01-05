@@ -24,6 +24,10 @@ function MrWhite() {
   const [players,setPlayers]=useState([])
   const[playerName,setPlayerName]=useState("")
   const [gamers,setGamers]=useState({})
+  const [selectedvalue,setSelectedValue]=useState("Default")
+  const [customwords,setCustomWords]=useState([])
+  const [customWordsName1,setCustomWordsName1]=useState("")
+  const [customWordsName2,setCustomWordsName2]=useState("")
   
 
 
@@ -45,31 +49,105 @@ setPlayers([...players,name])
      
     }
   }
+
+  function customwordAdd(){
+let cuswords=[]
+    const cusword1= document.getElementById("customword1")
+    const cusword2=document.getElementById("customword2")
+    const ctm1=cusword1.value.trim()
+    const ctm2=cusword2.value.trim() 
+   if(ctm1==="" || ctm2===""){
+    alert("enter both words No empty words")
+    return
+   }
+   else{
+    setCustomWords([...customwords,[ctm1,ctm2]])
+    setCustomWordsName1("");
+    setCustomWordsName2("");
+    console.log(customwords)
+    
+   }
+  }
+
+
+
 function gaming(){
-const mr=Math.floor(Math.random()*players.length)
-const word=Defaultwords[Math.floor(Math.random()*Defaultwords.length)]
-const binary=Math.floor(Math.random()*2)
-const nobinary=binary===0 ? 1 : 0
-const gameData={}
-for (let i=0;i<players.length;i++){
-  if(mr===i){
-gameData[players[i]]={
-
-  name:players[i],word:word[binary],ismrwhite:"false"
-}
+  
+  const mr=Math.floor(Math.random()*players.length)
+  const binary=Math.floor(Math.random()*2)
+  const nobinary=binary===0 ? 1 : 0
+  const gameData={}
+  if(setSelectedValue==="Default"){
+    const word=Defaultwords[Math.floor(Math.random()*Defaultwords.length)]
+    
+    for (let i=0;i<players.length;i++){
+    if(mr===i){
+      gameData[players[i]]={
+        
+        name:players[i],word:word[binary],ismrwhite:"false"
+      }
+      
+    }
+    else{
+      gameData[players[i]]={name:players[i],word:word[nobinary],ismrwhite:"false" }
+    }
+  }
+  setGamers(gameData)
+  console.log(gameData)
+  
+  }
+  
+  if(selectedvalue==="Custom"){
+ const word=customwords[Math.floor(Math.random()*customwords.length)]
+    
+    for (let i=0;i<players.length;i++){
+    if(mr===i){
+      gameData[players[i]]={
+        
+        name:players[i],word:word[binary],ismrwhite:"false"
+      }
+      
+    }
+    else{
+      gameData[players[i]]={name:players[i],word:word[nobinary],ismrwhite:"false" }
+    }
+  }
+  setGamers(gameData)
+  console.log(gameData)
+  
 
   }
-  else{
-    gameData[players[i]]={name:players[i],word:word[nobinary],ismrwhite:"false" }
-  }
-}
-setGamers(gameData)
-console.log(gameData)
-}
 
-  function startGame(){
-    if(players.length < 3){
-      alert("Need atelast 3 players to play")
+  if(selectedvalue==="Custom+default"){
+    const customdefault=[...Defaultwords,...customwords]
+    const word=customdefault[Math.floor(Math.random()*customdefault.length)]
+    
+    for (let i=0;i<players.length;i++){
+    if(mr===i)  {
+      gameData[players[i]]={
+        
+        name:players[i],word:word[binary],ismrwhite:"false"
+      }
+      
+    }
+    else{
+      gameData[players[i]]={name:players[i],word:word[nobinary],ismrwhite:"false" }
+    }
+  }
+  setGamers(gameData)
+  console.log(gameData)
+    }
+
+  }
+
+
+
+
+
+
+function startGame(){
+  if(players.length < 3){
+    alert("Need atelast 3 players to play")
       return
     }
     setView("Game")
@@ -109,11 +187,12 @@ console.log(gameData)
      <div><input type="text" id="PlayerNames" autoComplete='off'  className='border-2 border-gray-500  ' value={playerName} onChange={(e)=>{setPlayerName(e.target.value)}} placeholder='Enter Name here'/></div>
      
 
-     <button onClick={addPlayers} className="border-2 border-gray-500 hover:bg-[#1a1a1a]" style={{marginBottom:"20px" ,padding:"5px 50px 5px 50px"}}>Add Player</button>
+     <button onClick={addPlayers} className="border-2 border-gray-500 hover:bg-[#1a1a1a] active:translate-y-1 active:shadow-none  " style={{marginBottom:"20px" ,padding:"5px 50px 5px 50px"}}>Add Player</button>
 
 { players.length>=3 &&(
   <div >
-  <button className='hover:bg-orange-500 hover:text-white transition delay-5 ease-in-out bg-orange-400 border-2 border-gray-100 text-black'style={{ marginBottom:"20px" , padding:"5px 50px 5px 50px"}}  onClick={startGame}>Start Game</button>
+  
+  <button className='hover:bg-orange-500 hover:text-white transition delay-5 ease-in-out bg-orange-400 border-2 border-gray-100 text-black active:translate-y-1 active:shadow-none  'style={{ marginBottom:"20px" , padding:"5px 50px 5px 50px"}}  onClick={()=>setView("Customword")}>Start Game</button>
   </div>
 )}
   </form>
@@ -127,7 +206,66 @@ console.log(gameData)
 
 
 
-              {/* The Maine game page */}
+
+
+
+            {/* The add custom words option page */}
+
+
+
+{view=="Customword"  &&(
+  <div>
+    
+    <div className={styles.container}>
+<div className={styles.card}>
+  <div className='flex flex-col gap-10'>
+
+<div className='text-5xl'> Choose words </div>
+<select className='border-2 border-gray-600 bg-black' onChange={(e)=>setSelectedValue(e.target.value)} style={{padding:"20px" , margin:"10px"}}>
+ 
+  <option value="Default">Default words</option>
+  <option value="Custom">Custom words</option>
+  <option value="Custom+default">Custom + default</option>
+</select>
+{console.log(selectedvalue)}
+
+{
+(selectedvalue=="Custom"|| selectedvalue== "Custom+default") &&(
+  
+  
+  <div>
+    
+      <div className='flex flex-col items-center gap-1'>
+        <div> Custom words.. {customwords.length} </div>
+        <div>First word</div>
+        <input type="text" autoComplete='off' value={customWordsName1} onChange={(e)=>{setCustomWordsName1(e.target.value)}} id="customword1" className='border-2 border-gray-700' ></input>
+        <div>Second word</div>
+        <input type="text" autoComplete='off' value={customWordsName2} onChange={(e)=>{setCustomWordsName2(e.target.value)}}   id="customword2" className='border-2 border-gray-700' ></input>
+        <button className='border-gray-900 border-2 hover:bg-[#1a1a1a]  transition-all ease-in active:translate-y-2 active:shadow-none ' style={{padding:"15px 50px 15px 50px",margin:"10px 0px 1px 0px"}} onClick={customwordAdd}>Add Pair</button>
+  
+
+
+      </div>
+
+  </div>
+)}
+{(selectedvalue==="Default" ||customwords.length>=1 ) &&(
+
+  <button className='hover:bg-orange-500 hover:text-white  delay-5  bg-orange-400 border-2 border-gray-100 text-black transition-all ease-in active:translate-y-2 active:shadow-none'style={{ margin:"0px 50px 20px 50px" , padding:"5px 25px 5px 25px"} } onClick={startGame}   >Start Game</button>
+)}
+  </div>
+</div>
+    </div>
+  </div>
+)}
+
+
+
+
+
+
+
+              {/* The Main game page */}
 
 
 
