@@ -1,6 +1,6 @@
 import React from 'react'
 import './MrWhite.css'
-import { useState } from 'react'
+import { useState ,useCallback} from 'react'
 import { Link } from 'react-router-dom'
 
 
@@ -23,13 +23,17 @@ function MrWhite() {
   const [view, setView] = useState("Name")  
   const [players,setPlayers]=useState([])
   const[playerName,setPlayerName]=useState("")
-  const [gamers,setGamers]=useState({})
+  // const [gamers,setGamers]=useState({})
   const [selectedvalue,setSelectedValue]=useState("Default")
   const [customwords,setCustomWords]=useState([])
   const [customWordsName1,setCustomWordsName1]=useState("")
   const [customWordsName2,setCustomWordsName2]=useState("")
-  
-
+  const [showPassPlayer,setShowPassPlayer]=useState(false)
+  const [revealcards,setRevealCards]=useState([])
+  const [buttonCount,setButtonCount]=useState(1)
+  const [revealCardName,setRevealCardName]=useState("")
+  const[revealCardWord,setRevealCardWord]=useState("")
+  const[showVotingPage,setShowVotingPage]=useState(false)
 
   const styles = {
   container: "min-h-screen bg-black text-white font-mono flex flex-col items-center justify-center p-4 selection:bg-white selection:text-black",
@@ -50,8 +54,8 @@ setPlayers([...players,name])
     }
   }
 
-  function customwordAdd(){
-let cuswords=[]
+  const customwordAdd=()=>{
+
     const cusword1= document.getElementById("customword1")
     const cusword2=document.getElementById("customword2")
     const ctm1=cusword1.value.trim()
@@ -66,8 +70,8 @@ let cuswords=[]
     setCustomWordsName2("");
     console.log(customwords)
     
-   }
-  }
+   }}
+  
 
 
 
@@ -77,14 +81,14 @@ function gaming(){
   const binary=Math.floor(Math.random()*2)
   const nobinary=binary===0 ? 1 : 0
   const gameData={}
-  if(setSelectedValue==="Default"){
+  if(selectedvalue==="Default"){
     const word=Defaultwords[Math.floor(Math.random()*Defaultwords.length)]
     
     for (let i=0;i<players.length;i++){
     if(mr===i){
       gameData[players[i]]={
         
-        name:players[i],word:word[binary],ismrwhite:"false"
+        name:players[i],word:word[binary],ismrwhite:"true"
       }
       
     }
@@ -92,7 +96,7 @@ function gaming(){
       gameData[players[i]]={name:players[i],word:word[nobinary],ismrwhite:"false" }
     }
   }
-  setGamers(gameData)
+  // setGamers(gameData)
   console.log(gameData)
   
   }
@@ -104,7 +108,7 @@ function gaming(){
     if(mr===i){
       gameData[players[i]]={
         
-        name:players[i],word:word[binary],ismrwhite:"false"
+        name:players[i],word:word[binary],ismrwhite:"true"
       }
       
     }
@@ -112,7 +116,7 @@ function gaming(){
       gameData[players[i]]={name:players[i],word:word[nobinary],ismrwhite:"false" }
     }
   }
-  setGamers(gameData)
+  // setGamers(gameData)
   console.log(gameData)
   
 
@@ -126,7 +130,7 @@ function gaming(){
     if(mr===i)  {
       gameData[players[i]]={
         
-        name:players[i],word:word[binary],ismrwhite:"false"
+        name:players[i],word:word[binary],ismrwhite:"true"
       }
       
     }
@@ -134,12 +138,24 @@ function gaming(){
       gameData[players[i]]={name:players[i],word:word[nobinary],ismrwhite:"false" }
     }
   }
-  setGamers(gameData)
+  // setGamers(gameData)
   console.log(gameData)
     }
 
+              // card logic in a list
+    const liss=[]
+    
+    for(let key in gameData){
+      liss.push(gameData[key])
+    }
+    setRevealCards(liss)
+    console.log(liss)
+
+    setRevealCardName(liss[0].name)
+    setRevealCardWord(liss[0].word)
   }
 
+  
 
 
 
@@ -150,9 +166,42 @@ function startGame(){
     alert("Need atelast 3 players to play")
       return
     }
-    setView("Game")
-    gaming()
+    else{
+      setView("Game")  
+      gaming()
+    }
+    
   }
+
+function revealword(){
+  
+  if(showPassPlayer===false){
+    setShowPassPlayer(true)
+    return
+  }
+
+  if(showPassPlayer===true){
+    setShowPassPlayer(false)
+    
+    if(buttonCount<revealcards.length){
+      setRevealCardName(revealcards[buttonCount].name)
+      setRevealCardWord(revealcards[buttonCount].word)
+      console.log(revealcards[buttonCount].name)
+    console.log(revealcards[buttonCount].word)
+    const num=buttonCount
+    setButtonCount(num+1)
+    
+  }
+  if (buttonCount===revealcards.length-1){
+    setShowVotingPage(true)
+    setShowPassPlayer(false)
+    
+  }
+  }
+
+}
+
+
 
   return (
     <>
@@ -192,7 +241,7 @@ function startGame(){
 { players.length>=3 &&(
   <div >
   
-  <button className='hover:bg-orange-500 hover:text-white transition delay-5 ease-in-out bg-orange-400 border-2 border-gray-100 text-black active:translate-y-1 active:shadow-none  'style={{ marginBottom:"20px" , padding:"5px 50px 5px 50px"}}  onClick={()=>setView("Customword")}>Start Game</button>
+  <button  className='hover:bg-orange-500 hover:text-white transition delay-5 ease-in-out bg-orange-400 border-2 border-gray-100 text-black active:translate-y-1 active:shadow-none  'style={{ marginBottom:"20px" , padding:"5px 50px 5px 50px"}}  onClick={()=>setView("Customword")}>Select Words</button>
   </div>
 )}
   </form>
@@ -227,7 +276,7 @@ function startGame(){
   <option value="Custom">Custom words</option>
   <option value="Custom+default">Custom + default</option>
 </select>
-{console.log(selectedvalue)}
+
 
 {
 (selectedvalue=="Custom"|| selectedvalue== "Custom+default") &&(
@@ -272,26 +321,52 @@ function startGame(){
 
 
 {view==="Game" && (
-
 <div>
 <div className={styles.container}>
   <div className={styles.card}>
+<div className='flex flex-col items-center gap-3'>
+
 <div className='text-2xl'>Agent: </div>
-<h1 className='text-7xl text-orange-400'>{players[0]}</h1>
-<button className='border-2 border-gray-700 ' style={{padding:"10px"}}>Reveal Word</button>
+<h1 className='text-7xl text-orange-400'>{revealCardName}</h1>
+<div>Your word is {">>>>"}</div>
+
+{showPassPlayer===true &&(
+  <div>{revealCardWord}</div>
+)}
+
+{showPassPlayer===false&&(
+
+  <button className='border-2 border-gray-700 hover:bg-[#1a1a1a] transition-all ease-in active:translate-y-2 active:shadow-none' style={{padding:"10px"}} onClick={revealword} >Reveal Word</button>
+)}
+{showPassPlayer===true &&(
+  
+  <button className="border-2 border-gray-700" onClick={revealword}>Press to Hide & pass </button>
+)}
+{showVotingPage===true&&(
+  <button className='border-2 border-gray-700' onClick={()=>setView("Voting")}> well lets go to voting now</button>
+)}
 
 
-
+</div>
   </div>
 </div>
 
 </div>
 
-
-
 )}
 
-    
+
+
+    {/* after game the voting sesson and revealing who was the mrwhite */}
+
+
+{view==="Voting"&&(
+<div className={styles.container}>
+  <div className={styles.card}>
+    <div>hellowww</div>
+  </div>
+</div>
+)}    
       
     
     
