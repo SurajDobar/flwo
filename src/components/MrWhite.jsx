@@ -5,19 +5,132 @@ import { Link } from 'react-router-dom'
 
 
 
+const Defaultwords=
+[["Pizza", "Burger"],["Dog", "Cat"],["Tea", "Coffee"],["Beach", "Pool"],["Morning", "Night"],["Introvert", "Extrovert"],["City", "Village"],["Rain", "Snow"],["Mountains", "Sea"],["Chocolate", "Vanilla"],
+  ["Netflix", "YouTube"],["Instagram", "Snapchat"],["WhatsApp", "Telegram"],["Android", "iPhone"],["Windows", "Mac"],["Spotify", "Apple Music"],["Laptop", "PC"],["Online", "Offline"],["Gaming", "Sleeping"],["Streaming", "Downloading"],
+  ["Doctor", "Engineer"],["Teacher", "Student"],["Boss", "Employee"],["Police", "Thief"],["Hero", "Villain"],["Leader", "Follower"],["Influencer", "Creator"],["Singer", "Rapper"],["Actor", "Director"],["Comedian", "Roaster"],
+  ["Cricket", "Football"],
+  ["Messi", "Ronaldo"],
+  ["Virat", "Dhoni"],
+  ["Bat", "Ball"],
+  ["Stadium", "Street"],
+  ["Gym", "Yoga"],
+  ["Running", "Walking"],
+  ["Pushups", "Weights"],
+  ["Match", "Practice"],
+  ["Win", "Lose"],
 
-const Defaultwords=[
-  ["Pizza", "Burger"],
-  ["Dog", "Cat"],
-  ["Guitar", "Violin"],
-  ["Beach", "Pool"],
-  ["Coffee", "Tea"],
-  ["Facebook", "Instagram"],
-  ["Doctor", "Nurse"],
-  ["Apple", "Android"],
-  ["Netflix", "Youtube"],
-  ["Gym", "Yoga"]
+  ["Party", "Sleep"],
+  ["Dance", "Sing"],
+  ["DJ", "Playlist"],
+  ["Club", "House Party"],
+  ["Drunk", "High"],
+  ["Beer", "Whiskey"],
+  ["Vodka", "Rum"],
+  ["Shots", "Sips"],
+  ["Hangover", "Regret"],
+  ["Cheers", "Toast"],
+
+  ["Truth", "Dare"],
+  ["Lie", "Excuse"],
+  ["Secret", "Rumor"],
+  ["Crush", "Love"],
+  ["Ex", "Bestie"],
+  ["Ghosting", "Replying"],
+  ["Flirting", "Talking"],
+  ["Seen", "Ignored"],
+  ["Blocked", "Muted"],
+  ["Single", "Committed"],
+
+  ["School", "College"],
+  ["Homework", "Exam"],
+  ["Bunk", "Attend"],
+  ["Notes", "Cheating"],
+  ["Lecture", "Sleep"],
+  ["Semester", "Vacation"],
+  ["Result", "Panic"],
+  ["Backlog", "Depression"],
+  ["Degree", "Job"],
+  ["Intern", "Employee"],
+
+  ["Day", "Night"],
+  ["Sun", "Moon"],
+  ["Hot", "Cold"],
+  ["Light", "Dark"],
+  ["Fire", "Ice"],
+  ["Water", "Electricity"],
+  ["Fast", "Slow"],
+  ["Loud", "Quiet"],
+  ["Messy", "Clean"],
+  ["Lazy", "Productive"],
+
+  ["Street Food", "Restaurant"],
+  ["Burger King", "McDonalds"],
+  ["Pani Puri", "Vada Pav"],
+  ["Biryani", "Pizza"],
+  ["Fries", "Nachos"],
+  ["Ice Cream", "Cake"],
+  ["Sweet", "Spicy"],
+  ["Home Food", "Outside Food"],
+  ["Midnight Snack", "Dinner"],
+  ["Hunger", "Cravings"],
+
+  ["Bike", "Car"],
+  ["Uber", "Auto"],
+  ["Bus", "Train"],
+  ["Window Seat", "Aisle"],
+  ["Road Trip", "Flight"],
+  ["Map", "Google Maps"],
+  ["Lost", "Exploring"],
+  ["Fuel", "Money"],
+  ["Speed", "Safety"],
+  ["Destination", "Journey"],
+
+  ["Anime", "Cartoon"],
+  ["Naruto", "Dragon Ball"],
+  ["Marvel", "DC"],
+  ["Iron Man", "Batman"],
+  ["Hero", "Anti-Hero"],
+  ["Movie", "Series"],
+  ["Theatre", "OTT"],
+  ["Spoiler", "Surprise"],
+  ["Trailer", "Movie"],
+  ["Cliffhanger", "Ending"],
+
+  ["Luck", "Skill"],
+  ["Talent", "Hard Work"],
+  ["Risk", "Safe"],
+  ["Plan", "Random"],
+  ["Idea", "Execution"],
+  ["Confidence", "Overconfidence"],
+  ["Calm", "Panic"],
+  ["Focus", "Distraction"],
+  ["Thinking", "Overthinking"],
+  ["Dreaming", "Doing"],
+
+  ["Late Night", "Early Morning"],
+  ["Alarm", "Snooze"],
+  ["Sleep", "Scroll"],
+  ["Dream", "Nightmare"],
+  ["Phone", "Pillow"],
+  ["Battery", "Charger"],
+  ["Dark Mode", "Light Mode"],
+  ["Silent", "Vibrate"],
+  ["Wallpaper", "Lockscreen"],
+  ["Screenshot", "Save"],
+
+  ["Truth", "Guess"],
+  ["Clue", "Confusion"],
+  ["Hint", "Mislead"],
+  ["Suspect", "Innocent"],
+  ["Blame", "Defense"],
+  ["Spy", "Agent"],
+  ["Mr White", "Civilian"],
+  ["Lie Detector", "Poker Face"],
+  ["Silence", "Oversharing"],
+  ["Confidence", "Suspicion"]
 ]
+
 
 function MrWhite() {
   const [view, setView] = useState("Name")  
@@ -38,7 +151,8 @@ function MrWhite() {
   const[playerBlame,setPlayerBlame]=useState("")
   const[blamed,setBlamed]=useState(false)
   const[mrWon,setMrWon]=useState(true)
-  
+  const[MrwhiteName,setMrwhiteName]=useState("")
+
   const [offset, setOffset] = useState(100);
   const trackRef = React.useRef(null);
   const [x, setX] = useState(0);
@@ -86,7 +200,7 @@ React.useEffect(() => {
    const name=input.value.trim()
    if(name!==''){
 setPlayers([...players,name])
-   setPlayerName("")
+setPlayerName("")
      console.log(players)
    
      
@@ -273,6 +387,9 @@ function blamemrwhite(){
 function revealMrwhite() {
   if (!selectedVoteValue) return;
   const realMrWhite = revealcards.find((p) => p.ismrwhite === "true");
+  const realMrWhiteName=realMrWhite.name
+  setMrwhiteName(realMrWhiteName)
+  
   if (!realMrWhite) return;
   const voted = selectedVoteValue.toLowerCase();
   const actual = realMrWhite.name.toLowerCase();
@@ -284,6 +401,27 @@ function revealMrwhite() {
   setView("leaderboards");
 }
 
+
+
+function PLAYAGAIN() {
+
+  setView("Name");
+  setShowPassPlayer(false);
+  setRevealCards([]);
+  setButtonCount(1);
+  setRevealCardName("");
+  setRevealCardWord("");
+  setShowVotingPage(false);
+
+
+  setSelectedVoteValue("");
+  setPlayerBlame("");
+  setBlamed(false);
+
+
+  setMrWon(true);
+  setMrwhiteName("");
+}
 
 
 
@@ -508,16 +646,26 @@ function revealMrwhite() {
 
 {view==="leaderboards"&&(
   <div className={styles.container}>
-    <div className={styles.card}>
+    <div className={styles.card} style={{padding:"20px"}}>
 
 {mrWon ? (
-  <div className="text-red-500 text-3xl font-bold">MR WHITE WON</div>
+<div>
+<div className="text-red-500 text-3xl font-bold">MR WHITE WON</div>
+<hr/>
+</div>
 ) : (
+<div>
   <div className="text-green-400 text-3xl font-bold">AGENTS WON</div>
+  <hr/> </div>
 )}
+<div className=" animate-wiggle w-full overflow-hidden border-2 border-orange-500 bg-orange-900 text-orange-300 " style={{margin:"25px 0px 25px 0px",padding:"70px 8px 70px 8px"}}>  
+<div className='text-8xl' style={{margin:"0px 0px 30px 0px"}}>{MrwhiteName}</div>
+<div className='text-4xl'> WAS THE MRWHITE</div>
+</div>
+<hr className='border-2'/>
 
+<button onClick={PLAYAGAIN} className='border-2 border-gray-700 font-bold active:translate-1 hover:bg-white hover:text-black transition ease-in' style={{padding:"10px 8px 10px 8px",margin:"20px"}} >PLAY AGAIN</button> 
 
-    
     </div></div>)}
     
     
