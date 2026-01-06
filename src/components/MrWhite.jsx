@@ -34,8 +34,11 @@ function MrWhite() {
   const [revealCardName,setRevealCardName]=useState("")
   const[revealCardWord,setRevealCardWord]=useState("")
   const[showVotingPage,setShowVotingPage]=useState(false)
-
-
+  const[selectedVoteValue,setSelectedVoteValue]=useState("")
+  const[playerBlame,setPlayerBlame]=useState("")
+  const[blamed,setBlamed]=useState(false)
+  const[mrWon,setMrWon]=useState(true)
+  
   const [offset, setOffset] = useState(100);
   const trackRef = React.useRef(null);
   const [x, setX] = useState(0);
@@ -237,6 +240,51 @@ function revealword(){
 
 }
 
+function blamemrwhite(){
+  if(selectedVoteValue==="")return
+  
+  const votevalue=selectedVoteValue.toLocaleLowerCase()
+  setBlamed(true)
+  for(let i =0;i<revealcards.length;i++){
+    if(revealcards[i].name.toLocaleLowerCase()===votevalue){
+      if(revealcards[i].ismrwhite==="true"){
+        console.log("Mrwhite")
+        setPlayerBlame("Mrwhite")
+        
+        
+      }
+    }
+
+    if(revealcards[i].name.toLocaleLowerCase()===votevalue){
+      
+      if(revealcards[i].ismrwhite==="false"){
+        console.log("agent")
+        setPlayerBlame("Agent")
+
+      }
+    }
+    
+    
+    
+  }
+  
+}
+
+function revealMrwhite() {
+  if (!selectedVoteValue) return;
+  const realMrWhite = revealcards.find((p) => p.ismrwhite === "true");
+  if (!realMrWhite) return;
+  const voted = selectedVoteValue.toLowerCase();
+  const actual = realMrWhite.name.toLowerCase();
+  if (voted === actual) {
+    setMrWon(false); // agents win
+  } else {
+    setMrWon(true); // mr white wins
+  }
+  setView("leaderboards");
+}
+
+
 
 
   return (
@@ -367,7 +415,7 @@ function revealword(){
 
 <div className='text-2xl'>SPECIAL AGENT </div>
 <h1 className='text-7xl text-orange-400 underline' style={{padding:"0px 0px 20px 0px"}}>{revealCardName.toLocaleUpperCase()}</h1>
-<div>YOUR WORD IS...</div>
+<div className='opacity-85'>YOUR WORD IS...</div>
 
 {showPassPlayer===true &&(
   
@@ -381,14 +429,7 @@ function revealword(){
 
 {showPassPlayer===false&&(
   
-  /* <div>
-  <div className='animate-pulse '>
-  <hr/>
-  <div className='text-4xl border-3 bg-yellow-400 border-yellow-800 text-black'>⚠️PASS TO PLAYER⚠️ </div>
-  <hr/>
-  </div>
-  <button className='border-2 border-gray-700 hover:bg-[#1a1a1a] transition-all ease-in active:translate-y-2 active:shadow-none' style={{padding:"10px"}} onClick={revealword} >REVEAL WORD</button>
-  </div> */
+
 
 <>
 <div className=" animate-pulse w-full overflow-hidden border-2 border-yellow-500 bg-yellow-900 text-yellow-300" style={{margin:"25px 0px 25px 0px"}}>
@@ -420,6 +461,7 @@ function revealword(){
   <button className='bg-gray-100 border-dashed text-black w-full border-2 rounded-2xl border-gray-700 transition ease hover:bg-gray-300  active:translate-y-1 ' style={{margin:"20px 0px 0px 0px",padding:"10px"}} onClick={()=>setView("Voting")}> Voting </button>
 )}
 
+<div className='font-bold flex' style={{margin:"20px 0px 0px 0px"}}>PLAYER(<div className='text-orange-500'>{buttonCount}</div>/{revealcards.length})</div>
 
 </div>
   </div>
@@ -437,11 +479,46 @@ function revealword(){
 {view==="Voting"&&(
 <div className={styles.container}>
   <div className={styles.card}>
-    <div>hellowww</div>
+    <div className='flex flex-col gap-3' style={{padding:"20px 30px 30px 30px"}}>
+    <div className='text-3xl font-bold'>INVESTIGATION</div>
+    <hr className='border-2'/>
+    <div className='font-bold' style={{margin:"20px"}}>SELECT WHO IS THE MR.WHITE</div>
+    <div className='w-full'>
+      <hr className='border-2 border-white'/>
+      <select value={selectedVoteValue} className=' w-full bg-black text-center border-2 border-dashed border-gray-400 font-bold active:translate-x-1 active:translate-y-1 duration-initial-200 transition-all ease-out    hover:bg-gray-100 hover:text-black'  style={{padding:"15px",margin:"15px 0px 110px 0px"}} onChange={(e)=>{setSelectedVoteValue(e.target.value), setBlamed(false)}}>
+<option disabled  value="">Select player</option>
+{revealcards.map((prev)=>(
+  <option  key={prev.name} value={prev.name}  id={prev.ismrwhite} className='font-bold'> {prev.name.toLocaleUpperCase()}</option>
+)) }</select> <hr className='border-2 border-white'/>
+</div>
+<div className={styles.btncvr} style={{margin:"15px 0px 15px 0px"}}><button className={styles.btn} style={{padding:"10px"}}onClick={blamemrwhite}>BLAME IS MR WHITE </button></div>
+
+ {blamed===true&&(<div className={styles.btncvr}><button className="font-sans font-bold border-2 border-gray-900 hover:bg-orange-500 active:translate-1 active:bg-orange-500 bg-orange-400 text-black w-full " style={{padding:"10px"}}onClick={revealMrwhite}>CONFIRM</button></div>)} 
+{/* selectedVoteValue!=="" */}
+
+
+
+    </div>
   </div>
 </div>
 )}    
       
+
+
+
+{view==="leaderboards"&&(
+  <div className={styles.container}>
+    <div className={styles.card}>
+
+{mrWon ? (
+  <div className="text-red-500 text-3xl font-bold">MR WHITE WON</div>
+) : (
+  <div className="text-green-400 text-3xl font-bold">AGENTS WON</div>
+)}
+
+
+    
+    </div></div>)}
     
     
 
