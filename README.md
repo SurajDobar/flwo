@@ -1,16 +1,82 @@
-# React + Vite
+# flwo 🕹️
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**A retro-style party game arcade built for local group fun.**
 
-Currently, two official plugins are available:
+flwo is a collection of party games designed with a minimalist, monochrome pixel aesthetic. The flagship game, "Mr. White," is a "pass-and-play" experience perfect for lunch breaks or hangouts.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🔗 Play Live: https://flwo.netlify.app/
 
-## React Compiler
+## 🎮 Game Modes
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+🕵️ Mr. White (Social Deduction)
 
-## Expanding the ESLint configuration
+![[flwo.mp4]]
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+A game of bluffing and intuition for 3+ players.
+
+The Setup: Every player receives a secret word. Most get the same word (e.g., "Pizza"), but one person (Mr. White) gets a slightly different word (e.g., "Burger").
+
+The Goal:
+
+Civilians: Find the person with the different word.
+
+Mr. White: Blend in and figure out the Civilians' word without getting caught.
+
+The Twist: It's purely "Pass and Play"—no internet required for friends in the same room.
+
+## ✨ Key Features
+
+Retro Pixel UI: A clean, high-contrast black & white aesthetic inspired by old-school arcades.
+
+Custom Animations: Hand-coded JavaScript scrolling text engine (no simple CSS marquees here!).
+
+Single Page Application (SPA): Seamless transitions between menus and game phases using React Router and conditional rendering.
+
+Custom Word Packs: Players can add their own inside jokes or specific words to the game pool.
+
+Leaderboard: Tracks player wins across multiple rounds in a single session.
+
+## 🛠️ Tech Stack
+
+Frontend: React.js (Vite)
+
+Styling: Tailwind CSS
+
+Routing: React Router DOM / Custom State Management
+
+Deployment: Netlify
+
+## 🚀 Run Locally
+
+Want to inspect the code or modify the rules?
+
+
+1. Clone the repository
+``` 
+git clone [https://github.com/SurajDobar/flwo.git](https://github.com/SurajDobar/flwo.git)
+
+cd flwo
+```
+
+2. Install dependencies
+```
+npm install
+```
+
+3. Start the server
+```
+npm run dev
+```
+
+  
+## 🚧 Status
+
+Current Version: Beta 1
+
+This project was built in 6 days as a challenge to master React logic, State Management, and Routing from scratch.
+
+Known Improvements: Optimizing the "Custom Words" persistence and adding mobile-specific touch gestures.
+
+Upcoming: Backend integration for real-time online play.
+
+Made with 🖤 by Suraj Dobar

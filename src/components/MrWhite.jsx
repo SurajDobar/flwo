@@ -5,8 +5,7 @@ import { Link } from 'react-router-dom'
 
 
 
-const Defaultwords=
-[["Pizza", "Burger"],["Dog", "Cat"],["Tea", "Coffee"],["Beach", "Pool"],["Morning", "Night"],["Introvert", "Extrovert"],["City", "Village"],["Rain", "Snow"],["Mountains", "Sea"],["Chocolate", "Vanilla"],
+const Defaultwords=[["Pizza", "Burger"],["Dog", "Cat"],["Tea", "Coffee"],["Beach", "Pool"],["Morning", "Night"],["Introvert", "Extrovert"],["City", "Village"],["Rain", "Snow"],["Mountains", "Sea"],["Chocolate", "Vanilla"],
   ["Netflix", "YouTube"],["Instagram", "Snapchat"],["WhatsApp", "Telegram"],["Android", "iPhone"],["Windows", "Mac"],["Spotify", "Apple Music"],["Laptop", "PC"],["Online", "Offline"],["Gaming", "Sleeping"],["Streaming", "Downloading"],
   ["Doctor", "Engineer"],["Teacher", "Student"],["Boss", "Employee"],["Police", "Thief"],["Hero", "Villain"],["Leader", "Follower"],["Influencer", "Creator"],["Singer", "Rapper"],["Actor", "Director"],["Comedian", "Roaster"],
   ["Cricket", "Football"],
