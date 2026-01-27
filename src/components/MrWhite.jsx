@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 
 
 
+
 const Defaultwords=[["Pizza", "Burger"],["Dog", "Cat"],["Tea", "Coffee"],["Beach", "Pool"],["Morning", "Night"],["Introvert", "Extrovert"],["City", "Village"],["Rain", "Snow"],["Mountains", "Sea"],["Chocolate", "Vanilla"],
   ["Netflix", "YouTube"],["Instagram", "Snapchat"],["WhatsApp", "Telegram"],["Android", "iPhone"],["Windows", "Mac"],["Spotify", "Apple Music"],["Laptop", "PC"],["Online", "Offline"],["Gaming", "Sleeping"],["Streaming", "Downloading"],
   ["Doctor", "Engineer"],["Teacher", "Student"],["Boss", "Employee"],["Police", "Thief"],["Hero", "Villain"],["Leader", "Follower"],["Influencer", "Creator"],["Singer", "Rapper"],["Actor", "Director"],["Comedian", "Roaster"],
@@ -190,7 +191,7 @@ React.useEffect(() => {
   card:'border-4 border-gray-700 p-8 w-full max-w-md text-center bg-black shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] ',
   // head:,
   btncvr:"shadow-[4px_4px_0px_0px_rgba(200,200,200,1)] w-full",
-  btn:"border-2 w-full font-bold border-gray-700 hover:bg-[#1a1a1a]  active:translate-y-1 active:translate-x-1 active:shadow-none",
+  btn:"border-2 w-full font-bold border-gray-700 hover:bg-[#1a1a1a] cursor-pointer active:translate-y-1 active:translate-x-1 active:shadow-none",
   }
 
   function addPlayers(){
@@ -436,7 +437,7 @@ function PLAYAGAIN() {
     <div className={styles.container}>  
   <div className={styles.card}>
     <div className='flex items-center ' style={{padding:"10px 0px 20px 10px " ,margin:"0px"} }>
-        <Link to="/" ><button className="text-white hover:underline  border-2 border-gray-500 font-mono" style={{padding:"6px 8px 6px 3px",margin:"0px"}} onClick={()=>setView("Name")}>{"<"} Menu</button></Link>
+        <Link to="/" ><button className="cursor-pointer text-white hover:underline  border-2 border-gray-500 font-mono" style={{padding:"6px 8px 6px 3px",margin:"0px"}} onClick={()=>setView("Name")}>{"<"} Menu</button></Link>
     </div>
     
 <div className='flex flex-col gap-9 w-full' style={{padding:"0px 30px 0px 30px"}}>
@@ -465,7 +466,7 @@ function PLAYAGAIN() {
 { players.length>=3 &&(
   <div className='w-full'>
   
-  <button  className='w-full hover:bg-orange-500 hover:text-white transition delay-5 ease-in-out bg-orange-400 border-2 border-gray-100 text-black active:translate-y-1 active:shadow-none  'style={{ marginBottom:"20px" , padding:"5px 50px 5px 50px"}}  onClick={()=>setView("Customword")}>Select Words</button>
+  <button  className='w-full cursor-pointer hover:bg-orange-500 hover:text-white  bg-orange-400 border-2 border-gray-100 text-black active:translate-y-1 active:shadow-none  'style={{ marginBottom:"20px" , padding:"5px 50px 5px 50px"}}  onClick={()=>setView("Customword")}>Select Words</button>
   </div>
 )}
   </form>
@@ -494,7 +495,7 @@ function PLAYAGAIN() {
   <div className='flex flex-col gap-5 w-full' style={{padding:"20px"}}>
 
 <div className='text-5xl font-bold'> CHOOSE WORDS </div>
-<select className=' font-bold border-2 border-gray-600 bg-black' onChange={(e)=>setSelectedValue(e.target.value)} style={{padding:"20px" , margin:"10px"}}>
+<select className=' cursor-pointer font-bold border-2 border-gray-600 bg-black' onChange={(e)=>setSelectedValue(e.target.value)} style={{padding:"20px" , margin:"10px"}}>
  
   <option value="Default">Default words</option>
   <option value="Custom">Custom words</option>
@@ -514,7 +515,7 @@ function PLAYAGAIN() {
         <input type="text" autoComplete='off' value={customWordsName1} placeholder='FIRST WORD' onChange={(e)=>{setCustomWordsName1(e.target.value)}} id="customword1" className='border-2 border-gray-700 w-full' style={{padding:"15px 0px 15px 10px"}} ></input>
         
         <input type="text" autoComplete='off' value={customWordsName2} placeholder='SECOND WORD' onChange={(e)=>{setCustomWordsName2(e.target.value)}}   id="customword2" className='border-2 border-gray-700 w-full' style={{padding:"15px 0px 15px 10px"}} ></input>
-        <button className='border-gray-900 border-2 hover:bg-[#1a1a1a] font-bold transition-all ease-in active:translate-y-2 active:shadow-none ' style={{padding:"15px 50px 15px 50px",margin:"10px 0px 1px 0px"}} onClick={customwordAdd}>+ ADD PAIR </button>
+        <button className='cursor-pointer border-gray-900 border-2 hover:bg-[#1a1a1a] font-bold transition-all ease-in active:translate-y-2 active:shadow-none ' style={{padding:"15px 50px 15px 50px",margin:"10px 0px 1px 0px"}} onClick={customwordAdd}>+ ADD PAIR </button>
   
 
 
@@ -524,7 +525,7 @@ function PLAYAGAIN() {
 )}
 {(selectedvalue==="Default" ||customwords.length>=1 ) &&(
 
-  <button className='hover:bg-orange-500 hover:text-white  delay-5  bg-orange-400 border-2 border-gray-100 text-black transition-all ease-in active:translate-y-2 active:shadow-none'style={{ margin:"0px 50px 20px 50px" , padding:"5px 25px 5px 25px"} } onClick={startGame}   >Start Game</button>
+  <button className='cursor-pointer hover:bg-orange-500 hover:text-white bg-orange-400 border-2 border-gray-100 text-black active:translate-y-2 active:shadow-none'style={{ margin:"0px 50px 20px 50px" , padding:"5px 25px 5px 25px"} } onClick={startGame}   >Start Game</button>
 )}
   </div>
 </div>
@@ -589,13 +590,13 @@ function PLAYAGAIN() {
 {showPassPlayer===true &&(
   <div className='w-full'> 
     <div>PRESS BUTTON TO HIDE AND PASS</div>
-  <button className="border-2 hover:bg-[#1a1a1a]  border-gray-700 bg-[#111010] w-full  active:translate-y-1 active:shadow-none" style={{padding:"8px",margin:"20px 0px 20px 0px"}} onClick={revealword}>HIDE & PASS </button>
+  <button className="border-2 cursor-pointer hover:bg-[#1a1a1a]  border-gray-700 bg-[#111010] w-full  active:translate-y-1 active:shadow-none" style={{padding:"8px",margin:"20px 0px 20px 0px"}} onClick={revealword}>HIDE & PASS </button>
 
   </div>
 )}
 {showVotingPage===true&&(
   
-  <button className='bg-gray-100 border-dashed text-black w-full border-2 rounded-2xl border-gray-700 transition ease hover:bg-gray-300  active:translate-y-1 ' style={{margin:"20px 0px 0px 0px",padding:"10px"}} onClick={()=>setView("Voting")}> Voting </button>
+  <button className='bg-gray-100 cursor-pointer border-dashed text-black w-full border-2 rounded-2xl border-gray-700 transition ease hover:bg-gray-300  active:translate-y-1 ' style={{margin:"20px 0px 0px 0px",padding:"10px"}} onClick={()=>setView("Voting")}> Voting </button>
 )}
 
 <div className='font-bold flex' style={{margin:"20px 0px 0px 0px"}}>PLAYER(<div className='text-orange-500'>{buttonCount}</div>/{revealcards.length})</div>
@@ -622,7 +623,7 @@ function PLAYAGAIN() {
     <div className='font-bold' style={{margin:"20px"}}>SELECT WHO IS THE MR.WHITE</div>
     <div className='w-full'>
       <hr className='border-2 border-white'/>
-      <select value={selectedVoteValue} className=' w-full bg-black text-center border-2 border-dashed border-gray-400 font-bold active:translate-x-1 active:translate-y-1 duration-initial-200 transition-all ease-out    hover:bg-gray-100 hover:text-black'  style={{padding:"15px",margin:"15px 0px 110px 0px"}} onChange={(e)=>{setSelectedVoteValue(e.target.value), setBlamed(false)}}>
+      <select value={selectedVoteValue} className='cursor-pointer w-full bg-black text-center border-2 border-dashed border-gray-400 font-bold active:translate-x-1 active:translate-y-1 duration-initial-200 transition-all ease-out    hover:bg-gray-100 hover:text-black'  style={{padding:"15px",margin:"15px 0px 110px 0px"}} onChange={(e)=>{setSelectedVoteValue(e.target.value), setBlamed(false)}}>
 <option disabled  value="">Select player</option>
 {revealcards.map((prev)=>(
   <option  key={prev.name} value={prev.name}  id={prev.ismrwhite} className='font-bold'> {prev.name.toLocaleUpperCase()}</option>
@@ -630,7 +631,7 @@ function PLAYAGAIN() {
 </div>
 <div className={styles.btncvr} style={{margin:"15px 0px 15px 0px"}}><button className={styles.btn} style={{padding:"10px"}}onClick={blamemrwhite}>BLAME IS MR WHITE </button></div>
 
- {blamed===true&&(<div className={styles.btncvr}><button className="font-sans font-bold border-2 border-gray-900 hover:bg-orange-500 active:translate-1 active:bg-orange-500 bg-orange-400 text-black w-full " style={{padding:"10px"}}onClick={revealMrwhite}>CONFIRM</button></div>)} 
+ {blamed===true&&(<div className={styles.btncvr}><button className="font-sans cursor-pointer font-bold border-2 border-gray-900 hover:bg-orange-500 active:translate-1 active:bg-orange-500 bg-orange-400 text-black w-full " style={{padding:"10px"}}onClick={revealMrwhite}>CONFIRM</button></div>)} 
 {/* selectedVoteValue!=="" */}
 
 
@@ -663,7 +664,7 @@ function PLAYAGAIN() {
 </div>
 <hr className='border-2'/>
 
-<button onClick={PLAYAGAIN} className='border-2 border-gray-700 font-bold active:translate-1 hover:bg-white hover:text-black transition ease-in' style={{padding:"10px 8px 10px 8px",margin:"20px"}} >PLAY AGAIN</button> 
+<button onClick={PLAYAGAIN} className='border-2  cursor-pointer border-gray-700 font-bold active:translate-1 hover:bg-white hover:text-black ' style={{padding:"10px 8px 10px 8px",margin:"20px"}} >PLAY AGAIN</button> 
 
     </div></div>)}
     
