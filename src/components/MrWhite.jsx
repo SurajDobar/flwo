@@ -2,8 +2,13 @@ import React from 'react'
 import './MrWhite.css'
 import { useState ,useRef} from 'react'
 import { Link } from 'react-router-dom'
-
-
+import blkbutton from "../assets/blkbutton.mp3"
+import gldbutton from "../assets/gldbutton.mp3"
+import cassfx from "../assets/cassfx.mp3"
+import selector from "../assets/selector.mp3"
+import swin from "../assets/swin.mp3"
+import sloose from "../assets/sloose.mp3"
+import back from "../assets/back.mp3"
 
 
 const Defaultwords=[["Pizza", "Burger"],["Dog", "Cat"],["Tea", "Coffee"],["Beach", "Pool"],["Morning", "Night"],["Introvert", "Extrovert"],["City", "Village"],["Rain", "Snow"],["Mountains", "Sea"],["Chocolate", "Vanilla"],
@@ -132,6 +137,7 @@ const Defaultwords=[["Pizza", "Burger"],["Dog", "Cat"],["Tea", "Coffee"],["Beach
 ]
 
 
+
 function MrWhite() {
   const [view, setView] = useState("Name")  
   const [players,setPlayers]=useState([])
@@ -202,8 +208,12 @@ React.useEffect(() => {
 setPlayers([...players,name])
 setPlayerName("")
      console.log(players)
+   new Audio(blkbutton).play()
    
-     
+  }
+  else{
+      new Audio(blkbutton).play()
+
     }
   }
 
@@ -215,13 +225,15 @@ setPlayerName("")
     const ctm2=cusword2.value.trim() 
    if(ctm1==="" || ctm2===""){
     alert("enter both words No empty words")
+    new Audio(blkbutton).play()
     return
    }
    else{
     setCustomWords([...customwords,[ctm1,ctm2]])
     setCustomWordsName1("");
     setCustomWordsName2("");
-    console.log(customwords)
+    new Audio(blkbutton).play()
+    
     
    }}
   
@@ -317,17 +329,19 @@ function gaming(){
 function startGame(){
   if(players.length < 3){
     alert("Need atelast 3 players to play")
+    new Audio(gldbutton).play()
       return
     }
     else{
       setView("Game")  
+      new Audio(gldbutton).play()
       gaming()
     }
     
   }
 
 function revealword(){
-  
+  new Audio(blkbutton).play()
   if(showPassPlayer===false){
     setShowPassPlayer(true)
     return
@@ -355,6 +369,7 @@ function revealword(){
 }
 
 function blamemrwhite(){
+  new Audio(blkbutton).play()
   if(selectedVoteValue==="")return
   
   const votevalue=selectedVoteValue.toLocaleLowerCase()
@@ -385,6 +400,7 @@ function blamemrwhite(){
 }
 
 function revealMrwhite() {
+  new Audio(gldbutton).play()
   if (!selectedVoteValue) return;
   const realMrWhite = revealcards.find((p) => p.ismrwhite === "true");
   const realMrWhiteName=realMrWhite.name
@@ -395,8 +411,10 @@ function revealMrwhite() {
   const actual = realMrWhite.name.toLowerCase();
   if (voted === actual) {
     setMrWon(false); // agents win
+    new Audio(swin).play()
   } else {
     setMrWon(true); // mr white wins
+    new Audio(sloose).play()
   }
   setView("leaderboards");
 }
@@ -404,7 +422,7 @@ function revealMrwhite() {
 
 
 function PLAYAGAIN() {
-
+new Audio(cassfx).play()
   setView("Name");
   setShowPassPlayer(false);
   setRevealCards([]);
@@ -437,7 +455,7 @@ function PLAYAGAIN() {
     <div className={styles.container}>  
   <div className={styles.card}>
     <div className='flex items-center ' style={{padding:"10px 0px 20px 10px " ,margin:"0px"} }>
-        <Link to="/" ><button className="cursor-pointer text-white hover:underline  border-2 border-gray-500 font-mono" style={{padding:"6px 8px 6px 3px",margin:"0px"}} onClick={()=>setView("Name")}>{"<"} Menu</button></Link>
+        <Link to="/" ><button className="cursor-pointer text-white hover:underline  border-2 border-gray-500 font-mono" style={{padding:"6px 8px 6px 3px",margin:"0px"}} onClick={()=>{setView("Name");new Audio(back).play()}}>{"<"} Menu</button></Link>
     </div>
     
 <div className='flex flex-col gap-9 w-full' style={{padding:"0px 30px 0px 30px"}}>
@@ -466,7 +484,7 @@ function PLAYAGAIN() {
 { players.length>=3 &&(
   <div className='w-full'>
   
-  <button  className='w-full cursor-pointer hover:bg-orange-500 hover:text-white  bg-orange-400 border-2 border-gray-100 text-black active:translate-y-1 active:shadow-none  'style={{ marginBottom:"20px" , padding:"5px 50px 5px 50px"}}  onClick={()=>setView("Customword")}>Select Words</button>
+  <button  className='w-full cursor-pointer hover:bg-orange-500 hover:text-white  bg-orange-400 border-2 border-gray-100 text-black active:translate-y-1 active:shadow-none  'style={{ marginBottom:"20px" , padding:"5px 50px 5px 50px"}}  onClick={()=>{setView("Customword"); new Audio(gldbutton).play() }}>Select Words</button>
   </div>
 )}
   </form>
@@ -515,7 +533,7 @@ function PLAYAGAIN() {
         <input type="text" autoComplete='off' value={customWordsName1} placeholder='FIRST WORD' onChange={(e)=>{setCustomWordsName1(e.target.value)}} id="customword1" className='border-2 border-gray-700 w-full' style={{padding:"15px 0px 15px 10px"}} ></input>
         
         <input type="text" autoComplete='off' value={customWordsName2} placeholder='SECOND WORD' onChange={(e)=>{setCustomWordsName2(e.target.value)}}   id="customword2" className='border-2 border-gray-700 w-full' style={{padding:"15px 0px 15px 10px"}} ></input>
-        <button className='cursor-pointer border-gray-900 border-2 hover:bg-[#1a1a1a] font-bold transition-all ease-in active:translate-y-2 active:shadow-none ' style={{padding:"15px 50px 15px 50px",margin:"10px 0px 1px 0px"}} onClick={customwordAdd}>+ ADD PAIR </button>
+        <button className='cursor-pointer border-gray-900 border-2 hover:bg-[#1a1a1a] font-bold active:translate-y-3 active:shadow-none ' style={{padding:"15px 50px 15px 50px",margin:"10px 0px 1px 0px"}} onClick={customwordAdd}>+ ADD PAIR </button>
   
 
 
@@ -596,7 +614,7 @@ function PLAYAGAIN() {
 )}
 {showVotingPage===true&&(
   
-  <button className='bg-gray-100 cursor-pointer border-dashed text-black w-full border-2 rounded-2xl border-gray-700 transition ease hover:bg-gray-300  active:translate-y-1 ' style={{margin:"20px 0px 0px 0px",padding:"10px"}} onClick={()=>setView("Voting")}> Voting </button>
+  <button className='bg-gray-100 cursor-pointer border-dashed text-black w-full border-2 rounded-2xl border-gray-700 transition ease hover:bg-gray-300  active:translate-y-1 ' style={{margin:"20px 0px 0px 0px",padding:"10px"}} onClick={()=>{setView("Voting");new Audio(gldbutton).play()}}> Voting </button>
 )}
 
 <div className='font-bold flex' style={{margin:"20px 0px 0px 0px"}}>PLAYER(<div className='text-orange-500'>{buttonCount}</div>/{revealcards.length})</div>
@@ -623,7 +641,7 @@ function PLAYAGAIN() {
     <div className='font-bold' style={{margin:"20px"}}>SELECT WHO IS THE MR.WHITE</div>
     <div className='w-full'>
       <hr className='border-2 border-white'/>
-      <select value={selectedVoteValue} className='cursor-pointer w-full bg-black text-center border-2 border-dashed border-gray-400 font-bold active:translate-x-1 active:translate-y-1 duration-initial-200 transition-all ease-out    hover:bg-gray-100 hover:text-black'  style={{padding:"15px",margin:"15px 0px 110px 0px"}} onChange={(e)=>{setSelectedVoteValue(e.target.value), setBlamed(false)}}>
+      <select value={selectedVoteValue} className='cursor-pointer w-full bg-black text-center border-2 border-dashed border-gray-400 font-bold active:translate-x-1 active:translate-y-1 duration-initial-200 transition-all ease-out    hover:bg-gray-100 hover:text-black'  style={{padding:"15px",margin:"15px 0px 110px 0px"}} onClick={()=>new Audio(selector).play()} onChange={(e)=>{setSelectedVoteValue(e.target.value), setBlamed(false)}}>
 <option disabled  value="">Select player</option>
 {revealcards.map((prev)=>(
   <option  key={prev.name} value={prev.name}  id={prev.ismrwhite} className='font-bold'> {prev.name.toLocaleUpperCase()}</option>
