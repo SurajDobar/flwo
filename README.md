@@ -2,15 +2,22 @@
 
 **A retro-style party game arcade built for local group fun.**
 
+
+
 flwo is a collection of party games designed with a minimalist, monochrome pixel aesthetic. The flagship game, "Mr. White," is a "pass-and-play" experience perfect for lunch breaks or hangouts.
 
 🔗 Play Live: https://flwo.netlify.app/
+>click to watch demo video on yt 👇
+
+<a href ="https://youtu.be/bUj3fYWDf9Y"> <img src="https://raw.githubusercontent.com/SurajDobar/flwo/refs/heads/main/flwomainpage.png"></a>
+
+
 
 ## 🎮 Game Modes
 
 🕵️ Mr. White (Social Deduction)
 
-![[flwo.mp4]]
+
 
 A game of bluffing and intuition for 3+ players.
 
@@ -79,4 +86,4 @@ Known Improvements: Optimizing the "Custom Words" persistence and adding mobile-
 
 Upcoming: Backend integration for real-time online play.
 
-Made with 🖤 by Suraj Dobar
+Made with ❤️ by Suraj Dobar
